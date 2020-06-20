@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  python-builder:
+    build:
+      context: ./builders/python
+    environment:
+      # FLASK_DEBUG: 1
+      FLASK_APP: ./builders/python/builder.py
+    volumes: ["./builders/python:/usr/src/app"]
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
