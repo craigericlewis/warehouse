@@ -11,15 +11,15 @@ def run_command(command):
 
 
 def install_package(package_name):
-    return run_command('pip install {}'.format(package_name))
+    return run_command('pip3 install {}'.format(package_name))
 
 
 def uninstall_package(package_name):
-    return run_command('pip uninstall {} -y'.format(package_name))
+    return run_command('pip3 uninstall {} -y'.format(package_name))
 
 
 def get_package_info(package):
-    return run_command('pip show {}'.format(package))
+    return run_command('pip3 show {}'.format(package))
 
 
 def get_package_size(package_location, package_name):
