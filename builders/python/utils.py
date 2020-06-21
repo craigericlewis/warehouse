@@ -51,6 +51,16 @@ def get_package_location(package_info):
     return package_location
 
 
+def format_package_name(package):
+    split_package = package.split('@')
+    if (len(split_package) > 1):
+        package_name = split_package[0]
+        package_version = split_package[1]
+        return package_name, '{}=={}'.format(package_name, package_version)
+    package_name = split_package[0]
+    return package_name, package_name
+
+
 def create_error(error):
     return {
         'size': None,
