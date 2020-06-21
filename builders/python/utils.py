@@ -1,25 +1,42 @@
 import subprocess
+import uuid
+import shutil
+import os
 
 
-def run_command(command):
-    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+def run_command(command, dir="./"):
+    process = subprocess.Popen(
+        command.split(), stdout=subprocess.PIPE, cwd=dir)
     output, error = process.communicate()
     if (error):
         raise Exception(error)
-    print(output)
     return output
 
 
-def install_package(package_name):
-    return run_command('pip3 install {}'.format(package_name))
+def get_install_path(package_name):
+    return 'packages/{}-{}'.format(package_name, str(uuid.uuid4()))
 
 
-def uninstall_package(package_name):
-    return run_command('pip3 uninstall {} -y'.format(package_name))
+def make_package_path(package_path):
+    os.mkdir(package_path)
 
 
-def get_package_info(package):
-    return run_command('pip3 show {}'.format(package))
+def remove_package_path(package_path):
+    shutil.rmtree(package_path)
+
+
+def install_package(package_path, package_name):
+    run_command('pipenv install {}'.format(package_name), package_path)
+
+
+def uninstall_package(package_path, package_name):
+    run_command('pipenv uninstall {} -y'.format(package_name), package_path)
+
+
+def get_package_info(package_path, package):
+    package_info = run_command(
+        'pipenv run pip3 show {}'.format(package), package_path)
+    return package_info
 
 
 def get_package_size(package_location, package_name):
@@ -37,7 +54,7 @@ def get_package_location(package_info):
 def create_error(error):
     return {
         'size': None,
-        'error': error.args[0]
+        'error': str(error)
     }
 
 

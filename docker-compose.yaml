@@ -6,6 +6,8 @@ services:
     environment:
       # FLASK_DEBUG: 1
       FLASK_APP: ./builders/python/builder.py
-    volumes: ["./builders/python:/usr/src/app"]
+    volumes:
+      - ./builders/python:/usr/src/app
+      - /usr/src/app/packages/
     ports:
       - "5000:5000"
