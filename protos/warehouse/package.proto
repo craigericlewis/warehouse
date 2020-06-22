@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "api";
+
+message PackageInfo {
+    string name = 1;
+    repeated VersionInfo version_info = 2;
+    string description = 3;
+    string py_pi_link = 4;
+    string github_link = 5;
+    int64 dependencies_count = 6;
+}
+
+message VersionInfo {
+    string version = 1;
+    string package_size = 2;
+    string package_zipped_size = 3;
+}
