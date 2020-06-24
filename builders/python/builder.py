@@ -9,9 +9,13 @@ from utils import (install_package, uninstall_package,
 app = Flask(__name__)
 
 
-@ app.route('/size')
-def size():
-    package = request.form['package']
+@ app.route('/size/<package>')
+def size(package=None):
+    if (package == None):
+        return {
+            "size": None,
+            "error": "No package name provided"
+        }
     package = package.lower()
     package_name, pip_name = format_package_name(package)
     try:

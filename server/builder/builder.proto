@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "api";
+
+service BuilderService {
+    rpc GetPackageSize (GetPackageSizeRequest) returns (PackageSize);
+}
+
+message GetPackageSizeRequest {
+    string package_name = 1;
+}
+
+message PackageSize {
+    string size = 1; 
+}

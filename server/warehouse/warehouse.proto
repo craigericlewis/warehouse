@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = "api";
+
+service PackageService {
+    rpc GetPackageInfo (GetPackageInfoRequest) returns (PackageInfo);
+}
+
+message GetPackageInfoRequest {
+    string package_name = 1;
+    Language language = 2;
+}
+
+message PackageInfo {
+    string name = 1;
+    Language language = 2;
+    repeated VersionInfo version_info = 3;
+    string description = 4;
+    Urls urls = 5;
+    int64 dependencies_count = 6;
+}
+
+message VersionInfo {
+    string version = 1;
+    string package_size = 2;
+    string package_zipped_size = 3;
+}
+
+message Urls {
+    string github_link = 1;
+    string py_pi_link = 2;
+}
+
+enum Language {
+    NONE = 0;
+    PYTHON2 = 1;
+    PYTHON3 = 2;
+    GO = 3;
+}
